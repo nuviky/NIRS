@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypesOfWTO{% endblock %}
+
+{% block body %}
+    <h1>Create new TypesOfWTO</h1>
+
+    {{ include('types_of_wto/_form.html.twig') }}
+
+    <a href="{{ path('types_of_w_t_o_index') }}">back to list</a>
+{% endblock %}

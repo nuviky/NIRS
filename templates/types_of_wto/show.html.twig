@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypesOfWTO{% endblock %}
+
+{% block body %}
+    <h1>TypesOfWTO</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ types_of_wto.id }}</td>
+            </tr>
+            <tr>
+                <th>TypeWTO</th>
+                <td>{{ types_of_wto.typeWTO }}</td>
+            </tr>
+            <tr>
+                <th>AggregateWTO</th>
+                {% for AggregatesWTO in types_of_wto.getRelation() %}
+                    <th>AggregatesWTO.aggregateWTO</th>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('types_of_wto_edit', {'id': types_of_w_t_o.id}) }}">edit</a>
+
+    {{ include('types_of_wto/_delete_form.html.twig') }}
+{% endblock %}

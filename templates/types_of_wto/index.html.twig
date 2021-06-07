@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypesOfWTO index{% endblock %}
+
+{% block body %}
+    <h1>TypesOfWTO index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TypeWTO</th>
+                <th>AggregateWTO</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for types_of_w_t_o in types_of_w_t_os %}
+            <tr>
+                <td>{{ types_of_w_t_o.id }}</td>
+                <td>{{ types_of_w_t_o.typeWTO }}</td>
+                <td>{% for AggregatesWTO in types_of_w_t_o.getRelation() %}
+                <td>{{ AggregatesWTO.aggregateWTO }}</td>
+                {% endfor %}</td>
+                <td>
+                    <a href="{{ path('types_of_wto_show', {'id': types_of_w_t_o.id}) }}">show</a>
+                    <a href="{{ path('types_of_w_t_o_edit', {'id': types_of_w_t_o.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('types_of_w_t_o_new') }}">Create new</a>
+{% endblock %}
