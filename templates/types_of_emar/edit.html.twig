@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypesOfEMAR{% endblock %}
+
+{% block body %}
+    <h1>Edit TypesOfEMAR</h1>
+
+    {{ include('types_of_emar/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
+    {{ include('types_of_emar/_delete_form.html.twig') }}
+{% endblock %}

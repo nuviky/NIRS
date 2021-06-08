@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypesOfEMAR{% endblock %}
+
+{% block body %}
+    <h1>Create new TypesOfEMAR</h1>
+
+    {{ include('types_of_emar/_form.html.twig') }}
+
+    <a href="{{ path('types_of_emar_index') }}">back to list</a>
+{% endblock %}

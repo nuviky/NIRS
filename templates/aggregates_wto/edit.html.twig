@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AggregatesWTO{% endblock %}
+
+{% block body %}
+    <h1>Edit AggregatesWTO</h1>
+
+    {{ include('aggregates_wto/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
+    {{ include('aggregates_wto/_delete_form.html.twig') }}
+{% endblock %}

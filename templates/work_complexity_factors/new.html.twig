@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New WorkComplexityFactors{% endblock %}
+
+{% block body %}
+    <h1>Create new WorkComplexityFactors</h1>
+
+    {{ include('work_complexity_factors/_form.html.twig') }}
+
+    <a href="{{ path('work_complexity_factors_index') }}">back to list</a>
+{% endblock %}

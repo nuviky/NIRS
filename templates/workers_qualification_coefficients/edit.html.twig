@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit WorkersQualificationCoefficients{% endblock %}
+
+{% block body %}
+    <h1>Edit WorkersQualificationCoefficients</h1>
+
+    {{ include('workers_qualification_coefficients/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('workers_qualification_coefficients_index') }}">back to list</a>
+
+    {{ include('workers_qualification_coefficients/_delete_form.html.twig') }}
+{% endblock %}

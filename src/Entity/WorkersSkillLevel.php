@@ -22,7 +22,7 @@ class WorkersSkillLevel
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $workerSkillLelvel;
+    private $workerSkillLevel;
 
     /**
      * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="workersSkillLevel")
@@ -39,14 +39,14 @@ class WorkersSkillLevel
         return $this->id;
     }
 
-    public function getWorkerSkillLelvel(): ?string
+    public function getWorkerSkillLevel(): ?string
     {
-        return $this->workerSkillLelvel;
+        return $this->workerSkillLevel;
     }
 
-    public function setWorkerSkillLelvel(string $workerSkillLelvel): self
+    public function setWorkerSkillLevel(string $workerSkillLevel): self
     {
-        $this->workerSkillLelvel = $workerSkillLelvel;
+        $this->workerSkillLevel = $workerSkillLevel;
 
         return $this;
     }

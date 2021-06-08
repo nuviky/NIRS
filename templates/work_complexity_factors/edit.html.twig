@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit WorkComplexityFactors{% endblock %}
+
+{% block body %}
+    <h1>Edit WorkComplexityFactors</h1>
+
+    {{ include('work_complexity_factors/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
+
+    {{ include('work_complexity_factors/_delete_form.html.twig') }}
+{% endblock %}

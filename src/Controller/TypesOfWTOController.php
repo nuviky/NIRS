@@ -16,17 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class TypesOfWTOController extends AbstractController
 {
     /**
-     * @Route("/", name="types_of_w_t_o_index", methods={"GET"})
+     * @Route("/", name="types_of_wto_index", methods={"GET"})
      */
     public function index(TypesOfWTORepository $typesOfWTORepository): Response
     {
         return $this->render('types_of_wto/index.html.twig', [
-            'types_of_w_t_os' => $typesOfWTORepository->findAll(),
+            'types_of_wtos' => $typesOfWTORepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="types_of_w_t_o_new", methods={"GET","POST"})
+     * @Route("/new", name="types_of_wto_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -39,7 +39,7 @@ class TypesOfWTOController extends AbstractController
             $entityManager->persist($typesOfWTO);
             $entityManager->flush();
 
-            return $this->redirectToRoute('types_of_w_t_o_index');
+            return $this->redirectToRoute('types_of_wto_index');
         }
 
         return $this->render('types_of_wto/new.html.twig', [
@@ -59,7 +59,7 @@ class TypesOfWTOController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="types_of_w_t_o_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="types_of_wto_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, TypesOfWTO $typesOfWTO): Response
     {
@@ -69,7 +69,7 @@ class TypesOfWTOController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('types_of_w_t_o_index');
+            return $this->redirectToRoute('types_of_wto_index');
         }
 
         return $this->render('types_of_wto/edit.html.twig', [
@@ -79,7 +79,7 @@ class TypesOfWTOController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="types_of_w_t_o_delete", methods={"POST"})
+     * @Route("/{id}", name="types_of_wto_delete", methods={"POST"})
      */
     public function delete(Request $request, TypesOfWTO $typesOfWTO): Response
     {
@@ -89,6 +89,6 @@ class TypesOfWTOController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('types_of_w_t_o_index');
+        return $this->redirectToRoute('types_of_wto_index');
     }
 }

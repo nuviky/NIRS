@@ -20,7 +20,7 @@ class WorkersQualificationCoefficients
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $workerQualificationCoefficient;
+    private $workerQualificationCoefficients;
 
     /**
      * @ORM\ManyToOne(targetEntity=WorkersSkillLevel::class, inversedBy="relation")
@@ -33,14 +33,14 @@ class WorkersQualificationCoefficients
         return $this->id;
     }
 
-    public function getWorkerQualificationCoefficient(): ?string
+    public function getWorkerQualificationCoefficients(): ?string
     {
-        return $this->workerQualificationCoefficient;
+        return $this->workerQualificationCoefficients;
     }
 
-    public function setWorkerQualificationCoefficient(string $workerQualificationCoefficient): self
+    public function setWorkerQualificationCoefficients(string $workerQualificationCoefficients): self
     {
-        $this->workerQualificationCoefficient = $workerQualificationCoefficient;
+        $this->workerQualificationCoefficients = $workerQualificationCoefficients;
 
         return $this;
     }
