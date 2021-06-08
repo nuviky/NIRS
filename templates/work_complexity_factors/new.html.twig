@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New WorkComplexityFactors{% endblock %}
+{% block title %}Создание коэффициента сложности работы{% endblock %}
 
 {% block body %}
-    <h1>Create new WorkComplexityFactors</h1>
+    <h1>Создание коэффициента сложности работы</h1>
 
     {{ include('work_complexity_factors/_form.html.twig') }}
 
-    <a href="{{ path('work_complexity_factors_index') }}">back to list</a>
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
 {% endblock %}

@@ -17,12 +17,34 @@ class TypesOfEMARController extends AbstractController
 {
 
     /**
-     * @Route("/{id}", name="types_of_e_m_a_r_show", methods={"GET"})
+     * @Route("/new", name="types_of_emar_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $typesOfEMAR = new TypesOfEMAR();
+        $form = $this->createForm(TypesOfEMARType::class, $typesOfEMAR);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($typesOfEMAR);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('types_of_wto_index');
+        }
+
+        return $this->render('types_of_emar/new.html.twig', [
+            'types_of_emar' => $typesOfEMAR,
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/{id}", name="types_of_emar_show", methods={"GET"})
      */
     public function show(TypesOfEMAR $typesOfEMAR): Response
     {
         return $this->render('types_of_emar/show.html.twig', [
-            'types_of_e_m_a_r' => $typesOfEMAR,
+            'types_of_emar' => $typesOfEMAR,
         ]);
     }
 
@@ -37,17 +59,17 @@ class TypesOfEMARController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('types_of_e_m_a_r_index');
+            return $this->redirectToRoute('types_of_wto_index');
         }
 
         return $this->render('types_of_emar/edit.html.twig', [
-            'types_of_e_m_a_r' => $typesOfEMAR,
+            'types_of_emar' => $typesOfEMAR,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="types_of_e_m_a_r_delete", methods={"POST"})
+     * @Route("/{id}", name="types_of_emar_delete", methods={"POST"})
      */
     public function delete(Request $request, TypesOfEMAR $typesOfEMAR): Response
     {
@@ -57,6 +79,7 @@ class TypesOfEMARController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('types_of_e_m_a_r_index');
+        return $this->redirectToRoute('types_of_wto_index');
     }
+
 }

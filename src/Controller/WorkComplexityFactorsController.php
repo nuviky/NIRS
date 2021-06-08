@@ -39,7 +39,7 @@ class WorkComplexityFactorsController extends AbstractController
             $entityManager->persist($workComplexityFactor);
             $entityManager->flush();
 
-            return $this->redirectToRoute('work_complexity_factors_index');
+            return $this->redirectToRoute('types_of_wto_index');
         }
 
         return $this->render('work_complexity_factors/new.html.twig', [
@@ -69,7 +69,7 @@ class WorkComplexityFactorsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('work_complexity_factors_index');
+            return $this->redirectToRoute('types_of_wto_index');
         }
 
         return $this->render('work_complexity_factors/edit.html.twig', [
@@ -89,6 +89,6 @@ class WorkComplexityFactorsController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('work_complexity_factors_index');
+        return $this->redirectToRoute('types_of_wto_index');
     }
 }

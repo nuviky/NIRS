@@ -2,17 +2,26 @@
 
 namespace App\Form;
 
+use App\Entity\AggregatesWTO;
 use App\Entity\TypesOfEMAR;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TypesOfEMARType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('typeOfEMAR')
+            ->add('typeOfEMAR', TextType::class, [
+                'label' => 'Виды ТО и РО']
+            )
+            ->add('aggregatesWTO', EntityType::class, [
+                'class' => AggregatesWTO::class,
+                'label' => 'Аггрегат ВТО']
+            )
         ;
     }
 

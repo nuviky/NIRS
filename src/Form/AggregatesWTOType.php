@@ -19,7 +19,8 @@ class AggregatesWTOType extends AbstractType
                 'label' => 'Аггрегат ВТО']
             )
             ->add('typesOfWTO', EntityType::class, [
-                'class' => TypesOfWTO::class]
+                'class' => TypesOfWTO::class,
+                'label' => 'Вид ВТО']
             )
         ;
     }

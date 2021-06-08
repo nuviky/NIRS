@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New AggregatesWTO{% endblock %}
+{% block title %}Новый аггрегат ВТО{% endblock %}
 
 {% block body %}
-    <h1>Create new AggregatesWTO</h1>
+    <h1>Создание нового агрегата ВТО</h1>
 
-    {{ include('aggregates_w_t_o/_form.html.twig') }}
-
-    <a href="{{ path('aggregates_wto_index') }}">back to list</a>
+    {{ include('aggregates_wto/_form.html.twig') }}
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New TypesOfEMAR{% endblock %}
+{% block title %}Создание вида ТО и РО{% endblock %}
 
 {% block body %}
-    <h1>Create new TypesOfEMAR</h1>
+    <h1>Создание вида ТО и РО</h1>
 
     {{ include('types_of_emar/_form.html.twig') }}
 
-    <a href="{{ path('types_of_emar_index') }}">back to list</a>
+    <a href="{{ path('types_of_wto_index') }}">Назад</a>
 {% endblock %}

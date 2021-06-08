@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ВТО
-{% endblock %}
+{% block title %}ВТО{% endblock %}
 
 {% block body %}
 	<h1>Высокотехнологическое оборудование</h1>
 
-	<table class="table" border="1" width="100%">
+	<table class="table table-bordered" >
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>Тип ВТО</th>
-				<th>Аггрегат ВТО</th>
-				<th>Виды ТО и РО</th>
-				<th>Коэффициенты сложности работ</th>
+				<th>№</th>
+				<th><a href="{{ path('types_of_wto_new') }}">Тип ВТО</a></th>
+				<th><a href="{{ path('aggregates_wto_new') }}">Аггрегаты ВТО</a></th>
+				<th><a href="{{ path('types_of_emar_new') }}">Виды ТО и РО</a></th>
+				<th><a href="{{ path('work_complexity_factors_new') }}">Коэффициенты сложности работ</a></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,21 +22,33 @@
 					<td><a href="{{ path('types_of_wto_edit', {'id': types_of_wto.id}) }}">{{ types_of_wto.typeWTO }}</a></td>
 					<td>
 						{% for AggregatesWTO in types_of_wto.getRelation() %}
-							<a href="{{ path('aggregates_wto_edit', {'id': AggregatesWTO.id}) }}">{{ types_of_wto.typeWTO }}->{{ AggregatesWTO.aggregateWTO }}</a>
+							<p>
+							<a href="{{ path('aggregates_wto_edit', {'id': AggregatesWTO.id}) }}">{{ AggregatesWTO.aggregateWTO }}</a>
+							</p>
 						{% endfor %}
 					</td>
 					<td>
 						{% for AggregatesWTO in types_of_wto.getRelation() %}
+							{% if (AggregatesWTO.getRelation().Count != 0) %}
+								{{ AggregatesWTO.aggregateWTO }}
+							{% endif %}
 							{% for TypesOfEMAR in AggregatesWTO.getRelation() %}
-								<a href="{{ path('types_of_emar_edit', {'id': TypesOfEMAR.id}) }}">{{ AggregatesWTO.aggregateWTO }}->{{ TypesOfEMAR.typeOfEMAR }}</a>
+								<p>
+								<a href="{{ path('types_of_emar_edit', {'id': TypesOfEMAR.id}) }}">{{ TypesOfEMAR.typeOfEMAR }}</a>
+								</p>
 							{% endfor %}
 						{% endfor %}
 					</td>
 					<td>
 						{% for AggregatesWTO in types_of_wto.getRelation() %}
 							{% for TypesOfEMAR in AggregatesWTO.getRelation() %}
+								{% if (TypesOfEMAR.getRelation().Count != 0) %}
+								{{ TypesOfEMAR.typeOfEMAR }}
+								{% endif %}
 								{% for WorkComplexityFactors in TypesOfEMAR.getRelation() %}
-									<a href="{{ path('work_complexity_factors_edit', {'id':WorkComplexityFactors.id}) }}">{{ TypesOfEMAR.typeOfEMAR }}->{{ WorkComplexityFactors.workComplexityFactor }}</a>
+									<p>
+									<a href="{{ path('work_complexity_factors_edit', {'id':WorkComplexityFactors.id}) }}">{{ WorkComplexityFactors.workComplexityFactor }}</a>
+									</p>
 								{% endfor %}
 							{% endfor %}
 						{% endfor %}
@@ -45,12 +56,12 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="3">no records found</td>
+					<td colspan="3">Данных нет</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-
-	<a href="{{ path('types_of_wto_new') }}">Create new</a>
-	<a href="{{ path('workers_skill_level_index') }}">Create new</a>
+	<div class="row">
+		{#<a href="{{ path('') }}">Вторая таблица</a>#}
+	</div>
 {% endblock %}

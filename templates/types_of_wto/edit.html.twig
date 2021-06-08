@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit TypesOfWTO{% endblock %}
+{% block title %}Изменение видов ВТО{% endblock %}
 
 {% block body %}
-    <h1>Edit TypesOfWTO</h1>
+    <h1>Изменение видов ВТО</h1>
 
-    {{ include('types_of_wto/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('types_of_wto/_form.html.twig', {'button_label': 'Изменить'}) }}
 
     <a href="{{  path('types_of_wto_index') }}">Назад</a>
     {{ include('types_of_wto/_delete_form.html.twig') }}
