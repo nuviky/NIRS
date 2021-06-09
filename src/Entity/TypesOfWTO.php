@@ -29,9 +29,15 @@ class TypesOfWTO
      */
     private $relation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WorkersSkillLevel::class, mappedBy="relation")
+     */
+    private $workersSkillLevels;
+
     public function __construct()
     {
         $this->relation = new ArrayCollection();
+        $this->workersSkillLevels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,5 +90,35 @@ class TypesOfWTO
     public function __toString()
     {
         return (string)$this->typeWTO;
+    }
+
+    /**
+     * @return Collection|WorkersSkillLevel[]
+     */
+    public function getWorkersSkillLevels(): Collection
+    {
+        return $this->workersSkillLevels;
+    }
+
+    public function addWorkersSkillLevel(WorkersSkillLevel $workersSkillLevel): self
+    {
+        if (!$this->workersSkillLevels->contains($workersSkillLevel)) {
+            $this->workersSkillLevels[] = $workersSkillLevel;
+            $workersSkillLevel->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkersSkillLevel(WorkersSkillLevel $workersSkillLevel): self
+    {
+        if ($this->workersSkillLevels->removeElement($workersSkillLevel)) {
+            // set the owning side to null (unless already changed)
+            if ($workersSkillLevel->getRelation() === $this) {
+                $workersSkillLevel->setRelation(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавление коэффициента качества выполняемых работ{% endblock %}
+
+{% block body %}
+    <h1>Добавление коэффициента качества выполняемых работ</h1>
+
+    {{ include('quality_factor_work_performed/_form.html.twig') }}
+
+    <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
+{% endblock %}

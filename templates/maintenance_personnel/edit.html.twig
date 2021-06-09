@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Матрица работ r-го обслуживающего персонала {% endblock %}
+
+{% block body %}
+    <h1>Матрица работ r-го обслуживающего персонала</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Группы</td>
+                <td>-2</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+            </tr> 
+            
+                {% for maintenance_personnel in maintenance_personnels %}
+                <tr>
+                    {% if (maintenance_personnel.getRelationQFWP().Count != 0) %}
+                        <td>
+							{{ maintenance_personnel.id }}
+                        </td>
+					{% endif %}
+                    {% for qFWP in maintenance_personnel.getRelationQFWP() %}
+                        <td>
+                        {{ qFWP.qualityFactor }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor1 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor2 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor3 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor4 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor5 }}
+                        </td>
+                    {% endfor %}
+                    </tr>
+                {% else %}
+                    <tr>
+                    <td colspan="2">Нет данных</td>
+                    </tr>
+                {% endfor %}
+            
+        </tbody>
+    </table>
+
+    <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
+
+    {{ include('maintenance_personnel/_delete_form.html.twig') }}
+{% endblock %}

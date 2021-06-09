@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Квалификация обслуживающего персонала {% endblock %}
+
+{% block body %}
+    
+	<div class="row">
+		<a href="{{ path('types_of_wto_index') }}">Первая таблица</a>
+	</div>
+
+    <h1>Квалификация обслуживающего персонала</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td rowspan="2">Номер группы</td>
+                <td rowspan="2"><a href="{{ path('workers_skill_level_new') }}">Уровень квалификации группы</a></td>
+                <td rowspan="2"><a href="{{ path('workers_qualification_coefficients_new') }}">Коэффициент квалификации группы</a></td>
+                <td colspan="6"><a href="{{ path('quality_factor_work_performed_new') }}">Коэффициент качества выполненной работы</a></td>
+            </tr>
+            <tr>
+                <td>-2</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for maintenance_personnel in maintenance_personnels %}
+            <tr>
+                <td><a href="{{ path('maintenance_personnel_edit', {'id': maintenance_personnel.id}) }}">{{ maintenance_personnel.id }}</a></td>
+                <td>
+                    {% for WSL in maintenance_personnel.getRelationWSL() %}
+                    <a href="{{ path('workers_skill_level_edit', {'id': WSL.id}) }}">{{ WSL.getRelation().typeWTO }}->{{ WSL.skillLevel }}</a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for WQC in maintenance_personnel.getRelationWQC() %}
+                    <a href="{{ path('workers_qualification_coefficients_edit', {'id': WQC.id}) }}">{{ WQC.getRelation().aggregateWTO }} -> {{ WQC.qualificationCoefficient }}</a>
+                    {% endfor %}
+                </td>
+                {% for QFWP in maintenance_personnel.getRelationQFWP() %}
+                    <td>
+                    <a href="{{ path('quality_factor_work_performed_edit', {'id': QFWP.id}) }}">{{ QFWP.getRelation().aggregateWTO }} -> {{ QFWP.qualityFactor }}</a>
+                    </td>
+                    <td>
+                    {{ QFWP.qualityFactor1 }}
+                    </td>
+                    <td>
+                    {{ QFWP.qualityFactor2 }}
+                    </td>
+                    <td>
+                    {{ QFWP.qualityFactor3 }}
+                    </td>
+                    <td>
+                    {{ QFWP.qualityFactor4 }}
+                    </td>
+                    <td>
+                    {{ QFWP.qualityFactor5 }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Нет данных</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ include('maintenance_personnel/_form.html.twig') }}
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Аггрегаты</td>
+                <td>-2</td>
+                <td>-1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+            </tr> 
+            
+                {% for aggregate_wto in aggregates_wtos %}
+                <tr>
+                    {% if (aggregate_wto.qualityFactorWorkPerformeds().Count != 0) %}
+                        <td>
+							{{ aggregate_wto.aggregateWTO }}
+                        </td>
+					{% endif %}
+                    {% for qFWP in aggregate_wto.qualityFactorWorkPerformeds() %}
+                        <td>
+                        {{ qFWP.qualityFactor }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor1 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor2 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor3 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor4 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor5 }}
+                        </td>
+                    {% endfor %}
+                    </tr>
+                {% else %}
+                    <tr>
+                    <td colspan="2">Нет данных</td>
+                    </tr>
+                {% endfor %}
+            
+        </tbody>
+    </table>
+
+    
+{% endblock %}

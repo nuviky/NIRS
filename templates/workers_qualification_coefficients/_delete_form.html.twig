@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('workers_qualification_coefficients_delete', {'id': workers_qualification_coefficient.id}) }}" onsubmit="return confirm('Вы действительно хотите удалить этот элемент?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workers_qualification_coefficient.id) }}">
+    <button class="btn btn-primary">Удалить</button>
+</form>

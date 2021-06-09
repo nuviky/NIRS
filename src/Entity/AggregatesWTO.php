@@ -35,9 +35,21 @@ class AggregatesWTO
      */
     private $relation;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="relation")
+     */
+    private $qualityFactorWorkPerformeds;
+
+    /**
+     * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="relation")
+     */
+    private $workersQualificationCoefficients;
+
     public function __construct()
     {
         $this->relation = new ArrayCollection();
+        $this->qualityFactorWorkPerformeds = new ArrayCollection();
+        $this->workersQualificationCoefficients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,5 +114,65 @@ class AggregatesWTO
     public function __toString()
     {
         return $this->aggregateWTO;
+    }
+
+    /**
+     * @return Collection|QualityFactorWorkPerformed[]
+     */
+    public function getQualityFactorWorkPerformeds(): Collection
+    {
+        return $this->qualityFactorWorkPerformeds;
+    }
+
+    public function addQualityFactorWorkPerformed(QualityFactorWorkPerformed $qualityFactorWorkPerformed): self
+    {
+        if (!$this->qualityFactorWorkPerformeds->contains($qualityFactorWorkPerformed)) {
+            $this->qualityFactorWorkPerformeds[] = $qualityFactorWorkPerformed;
+            $qualityFactorWorkPerformed->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQualityFactorWorkPerformed(QualityFactorWorkPerformed $qualityFactorWorkPerformed): self
+    {
+        if ($this->qualityFactorWorkPerformeds->removeElement($qualityFactorWorkPerformed)) {
+            // set the owning side to null (unless already changed)
+            if ($qualityFactorWorkPerformed->getRelation() === $this) {
+                $qualityFactorWorkPerformed->setRelation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WorkersQualificationCoefficients[]
+     */
+    public function getWorkersQualificationCoefficients(): Collection
+    {
+        return $this->workersQualificationCoefficients;
+    }
+
+    public function addWorkersQualificationCoefficient(WorkersQualificationCoefficients $workersQualificationCoefficient): self
+    {
+        if (!$this->workersQualificationCoefficients->contains($workersQualificationCoefficient)) {
+            $this->workersQualificationCoefficients[] = $workersQualificationCoefficient;
+            $workersQualificationCoefficient->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkersQualificationCoefficient(WorkersQualificationCoefficients $workersQualificationCoefficient): self
+    {
+        if ($this->workersQualificationCoefficients->removeElement($workersQualificationCoefficient)) {
+            // set the owning side to null (unless already changed)
+            if ($workersQualificationCoefficient->getRelation() === $this) {
+                $workersQualificationCoefficient->setRelation(null);
+            }
+        }
+
+        return $this;
     }
 }

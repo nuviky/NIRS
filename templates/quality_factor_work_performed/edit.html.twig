@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Изменение коэффициента качества выполняемых работ{% endblock %}
+
+{% block body %}
+    <h1>Изменение коэффициента качества выполняемых работ</h1>
+
+    {{ include('quality_factor_work_performed/_form.html.twig', {'button_label': 'Изменить'}) }}
+
+    <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
+
+    {{ include('quality_factor_work_performed/_delete_form.html.twig') }}
+{% endblock %}

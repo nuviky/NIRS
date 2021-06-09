@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Изменение уровня квалификации рабочих{% endblock %}
+
+{% block body %}
+    <h1>Изменение уровня квалификации рабочихl</h1>
+
+    {{ include('workers_skill_level/_form.html.twig', {'button_label': 'Изменить'}) }}
+
+    <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
+
+    {{ include('workers_skill_level/_delete_form.html.twig') }}
+{% endblock %}
