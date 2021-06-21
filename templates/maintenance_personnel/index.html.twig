@@ -33,17 +33,23 @@
                 <td><a href="{{ path('maintenance_personnel_edit', {'id': maintenance_personnel.id}) }}">{{ maintenance_personnel.id }}</a></td>
                 <td>
                     {% for WSL in maintenance_personnel.getRelationWSL() %}
+                    <p>
                     <a href="{{ path('workers_skill_level_edit', {'id': WSL.id}) }}">{{ WSL.getRelation().typeWTO }}->{{ WSL.skillLevel }}</a>
+                    </p>
                     {% endfor %}
                 </td>
                 <td>
                     {% for WQC in maintenance_personnel.getRelationWQC() %}
+                    <p>
                     <a href="{{ path('workers_qualification_coefficients_edit', {'id': WQC.id}) }}">{{ WQC.getRelation().aggregateWTO }} -> {{ WQC.qualificationCoefficient }}</a>
+                    </p>
                     {% endfor %}
                 </td>
                 {% for QFWP in maintenance_personnel.getRelationQFWP() %}
                     <td>
+                    <p>
                     <a href="{{ path('quality_factor_work_performed_edit', {'id': QFWP.id}) }}">{{ QFWP.getRelation().aggregateWTO }} -> {{ QFWP.qualityFactor }}</a>
+                    </p>
                     </td>
                     <td>
                     {{ QFWP.qualityFactor1 }}
@@ -82,6 +88,7 @@
                 <td>1</td>
                 <td>2</td>
                 <td>3</td>
+                <td>Количество выполненных работ</td>
             </tr>
         </thead>
         <tbody>
@@ -114,6 +121,9 @@
                         </td>
                         <td>
                         {{ qFWP.qualityFactor5 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor + qFWP.qualityFactor1 + qFWP.qualityFactor2 + qFWP.qualityFactor3 + qFWP.qualityFactor4 + qFWP.qualityFactor5 }}
                         </td>
                     {% endfor %}
                     </tr>

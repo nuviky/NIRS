@@ -28,11 +28,11 @@ class MatrixMintenancePersonnelWorkType extends AbstractType
                     )
                 )
             )
-            ->add('maintenancepersonnel', EntityType::class, [
+            ->add('maintenancePersonnel', EntityType::class, [
                 'class' => MaintenancePersonnel::class,
                 'label' => 'Группа']
             )
-            ->add('relation_', EntityType::class, [
+            ->add('relation', EntityType::class, [
                 'class' => AggregatesWTO::class,
                 'label' => 'Аггрегат ВТО']
             )

@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\AggregatesWTO;
+use App\Entity\QualityFactorWorkPerformed;
 use App\Entity\MaintenancePersonnel;
 use App\Form\MaintenancePersonnelType;
 use App\Repository\MaintenancePersonnelRepository;
+use App\Repository\QualityFactorWorkPerformedRepository;
 use App\Repository\AggregatesWTORepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,6 +52,7 @@ class MaintenancePersonnelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($maintenancePersonnel);
             $entityManager->flush();
@@ -66,10 +69,30 @@ class MaintenancePersonnelController extends AbstractController
     /**
      * @Route("/{id}", name="maintenance_personnel_show", methods={"GET"})
      */
-    public function show(MaintenancePersonnel $maintenancePersonnel): Response
+    public function show(Request $request, MaintenancePersonnel $maintenancePersonnel, QualityFactorWorkPerformedRepository $qualityFactorWorkPerformedRepository): Response
     {
+        $qualityFactorWorkPerformed = new QualityFactorWorkPerformed();
+        $form = $this->createForm(MatrixMintenancePersonnelWorkType::class, $qualityFactorWorkPerformed);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $qualityFactorWorkPerformed->setQualityFactor('0');
+            $qualityFactorWorkPerformed->setQualityFactor1('0');
+            $qualityFactorWorkPerformed->setQualityFactor2('0');
+            $qualityFactorWorkPerformed->setQualityFactor3('0');
+            $qualityFactorWorkPerformed->setQualityFactor4('0');
+            $qualityFactorWorkPerformed->setQualityFactor5('0');
+            // $qualityFactorWorkPerformed->setMaintenancePersonnel($maintenancePersonnel);
+            // $qualityFactorWorkPerformed->setRelation();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($maintenancePersonnel);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('maintenance_personnel_index');
+        }
         return $this->render('maintenance_personnel/show.html.twig', [
             'maintenance_personnel' => $maintenancePersonnel,
+            'form' => $form,
         ]);
     }
 
@@ -78,8 +101,13 @@ class MaintenancePersonnelController extends AbstractController
      */
     public function edit(Request $request, MaintenancePersonnel $maintenancePersonnel, MaintenancePersonnelRepository $maintenancePersonnelRepository): Response
     {
-        $form = $this->createForm(MaintenancePersonnelType::class, $maintenancePersonnel);
+        $qualityFactorWorkPerformed = new QualityFactorWorkPerformed();
+        $form = $this->createForm(MatrixMintenancePersonnelWorkType::class, $qualityFactorWorkPerformed);
         $form->handleRequest($request);
+
+
+
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();

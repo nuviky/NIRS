@@ -3,6 +3,12 @@
 {% block title %} Матрица работ r-го обслуживающего персонала {% endblock %}
 
 {% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+        <button class="btn btn-primary">{{ button_label|default('Присвоить группе агрегат') }}</button>
+    {{ form_end(form) }}
+    
+
     <h1>Матрица работ r-го обслуживающего персонала</h1>
 
     <table class="table table-bordered">
@@ -15,6 +21,7 @@
                 <td>1</td>
                 <td>2</td>
                 <td>3</td>
+                <td>Количество выполненных работ</td>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +54,9 @@
                         </td>
                         <td>
                         {{ qFWP.qualityFactor5 }}
+                        </td>
+                        <td>
+                        {{ qFWP.qualityFactor + qFWP.qualityFactor1 + qFWP.qualityFactor2 + qFWP.qualityFactor3 + qFWP.qualityFactor4 + qFWP.qualityFactor5 }}
                         </td>
                     {% endfor %}
                     </tr>
