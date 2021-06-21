@@ -30,10 +30,7 @@ class TypesOfEMAR
      */
     private $aggregatesWTO;
 
-    /**
-     * @ORM\OneToMany(targetEntity=WorkComplexityFactors::class, mappedBy="typesOfEMAR")
-     */
-    private $relation;
+
 
     public function __construct()
     {
@@ -69,35 +66,7 @@ class TypesOfEMAR
         return $this;
     }
 
-    /**
-     * @return Collection|WorkComplexityFactors[]
-     */
-    public function getRelation(): Collection
-    {
-        return $this->relation;
-    }
 
-    public function addRelation(WorkComplexityFactors $relation): self
-    {
-        if (!$this->relation->contains($relation)) {
-            $this->relation[] = $relation;
-            $relation->setTypesOfEMAR($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRelation(WorkComplexityFactors $relation): self
-    {
-        if ($this->relation->removeElement($relation)) {
-            // set the owning side to null (unless already changed)
-            if ($relation->getTypesOfEMAR() === $this) {
-                $relation->setTypesOfEMAR(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {

@@ -73,7 +73,7 @@ class TypesOfWTOController extends AbstractController
         }
 
         return $this->render('types_of_wto/edit.html.twig', [
-            'types_of_w_t_o' => $typesOfWTO,
+            'types_of_wto' => $typesOfWTO,
             'form' => $form->createView(),
         ]);
     }

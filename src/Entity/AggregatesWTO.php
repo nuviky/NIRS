@@ -31,17 +31,17 @@ class AggregatesWTO
     private $typesOfWTO;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypesOfEMAR::class, mappedBy="aggregatesWTO")
+     * @ORM\OneToMany(targetEntity=TypesOfEMAR::class, mappedBy="aggregatesWTO", cascade={"remove"})
      */
     private $relation;
 
     /**
-     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="relation")
+     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="relation", cascade={"remove"})
      */
     private $qualityFactorWorkPerformeds;
 
     /**
-     * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="relation")
+     * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="relation", cascade={"remove"})
      */
     private $workersQualificationCoefficients;
 

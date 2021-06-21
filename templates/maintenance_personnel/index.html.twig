@@ -29,54 +29,89 @@
         </thead>
         <tbody>
         {% for maintenance_personnel in maintenance_personnels %}
+        {% set count_WSL = maintenance_personnel.getRelationWSL().count %}
+        {% set count_WQC = maintenance_personnel.getRelationWQC().count %}
+        {% set count_QFWP = maintenance_personnel.getRelationQFWP().count %}
             <tr>
-                <td><a href="{{ path('maintenance_personnel_edit', {'id': maintenance_personnel.id}) }}">{{ maintenance_personnel.id }}</a></td>
-                <td>
+                <td rowspan={{count_QFWP}}><a href="{{ path('maintenance_personnel_edit', {'id': maintenance_personnel.id}) }}">{{ maintenance_personnel.id }}</a></td>
+                <td rowspan={{count_QFWP}}>
                     {% for WSL in maintenance_personnel.getRelationWSL() %}
                     <p>
-                    <a href="{{ path('workers_skill_level_edit', {'id': WSL.id}) }}">{{ WSL.getRelation().typeWTO }}->{{ WSL.skillLevel }}</a>
+                    <a href="{{ path('workers_skill_level_edit', {'id': WSL.id}) }}">{{ WSL.getRelation().typeWTO }} -> {{ WSL.skillLevel }}</a>
                     </p>
+                    {% else %}
+                        -
                     {% endfor %}
                 </td>
-                <td>
+                <td rowspan={{count_QFWP}}>
                     {% for WQC in maintenance_personnel.getRelationWQC() %}
                     <p>
                     <a href="{{ path('workers_qualification_coefficients_edit', {'id': WQC.id}) }}">{{ WQC.getRelation().aggregateWTO }} -> {{ WQC.qualificationCoefficient }}</a>
                     </p>
+                    {% else %}
+                        -
                     {% endfor %}
                 </td>
+                {% set counter = 0 %}
                 {% for QFWP in maintenance_personnel.getRelationQFWP() %}
-                    <td>
-                    <p>
-                    <a href="{{ path('quality_factor_work_performed_edit', {'id': QFWP.id}) }}">{{ QFWP.getRelation().aggregateWTO }} -> {{ QFWP.qualityFactor }}</a>
-                    </p>
-                    </td>
-                    <td>
-                    {{ QFWP.qualityFactor1 }}
-                    </td>
-                    <td>
-                    {{ QFWP.qualityFactor2 }}
-                    </td>
-                    <td>
-                    {{ QFWP.qualityFactor3 }}
-                    </td>
-                    <td>
-                    {{ QFWP.qualityFactor4 }}
-                    </td>
-                    <td>
-                    {{ QFWP.qualityFactor5 }}
-                    </td>
+                    {% if ( counter > 0 ) %}
+                        <tr>
+                            <td>
+                            <p>
+                            <a href="{{ path('quality_factor_work_performed_edit', {'id': QFWP.id}) }}">{{ QFWP.getRelation().aggregateWTO }} -> </a>{{ QFWP.qualityFactor }}
+                            </p>
+                            </td>
+                            <td>
+                            {{ QFWP.qualityFactor1 }}
+                            </td>
+                            <td>
+                            {{ QFWP.qualityFactor2 }}
+                            </td>
+                            <td>
+                            {{ QFWP.qualityFactor3 }}
+                            </td>
+                            <td>
+                            {{ QFWP.qualityFactor4 }}
+                            </td>
+                            <td>
+                            {{ QFWP.qualityFactor5 }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <td>
+                        <p>
+                        <a href="{{ path('quality_factor_work_performed_edit', {'id': QFWP.id}) }}">{{ QFWP.getRelation().aggregateWTO }} -> </a>{{ QFWP.qualityFactor }}
+                        </p>
+                        </td>
+                        <td>
+                        {{ QFWP.qualityFactor1 }}
+                        </td>
+                        <td>
+                        {{ QFWP.qualityFactor2 }}
+                        </td>
+                        <td>
+                        {{ QFWP.qualityFactor3 }}
+                        </td>
+                        <td>
+                        {{ QFWP.qualityFactor4 }}
+                        </td>
+                        <td>
+                        {{ QFWP.qualityFactor5 }}
+                        </td>
+                    {% endif %}
+                    {% set counter = counter + 1 %}
                 {% endfor %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">Нет данных</td>
+                <td colspan="8">Нет данных</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     {{ include('maintenance_personnel/_form.html.twig') }}
+    <p> Матрица качества выполнения видов работ для каждого агрегата</p>
 
     <table class="table table-bordered">
         <thead>
@@ -92,10 +127,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                
-            </tr> 
-            
                 {% for aggregate_wto in aggregates_wtos %}
                 <tr>
                     {% if (aggregate_wto.qualityFactorWorkPerformeds().Count != 0) %}
@@ -103,29 +134,43 @@
 							{{ aggregate_wto.aggregateWTO }}
                         </td>
 					{% endif %}
-                    {% for qFWP in aggregate_wto.qualityFactorWorkPerformeds() %}
-                        <td>
-                        {{ qFWP.qualityFactor }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor1 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor2 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor3 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor4 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor5 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor + qFWP.qualityFactor1 + qFWP.qualityFactor2 + qFWP.qualityFactor3 + qFWP.qualityFactor4 + qFWP.qualityFactor5 }}
-                        </td>
-                    {% endfor %}
+                    {% if (aggregate_wto.qualityFactorWorkPerformeds().count > 0) %}
+                        {% set qualityFactor = 0 %}
+                        {% set qualityFactor1 = 0 %}
+                        {% set qualityFactor2 = 0 %}
+                        {% set qualityFactor3 = 0 %}
+                        {% set qualityFactor4 = 0 %}
+                        {% set qualityFactor5 = 0 %}
+                        {% for qFWP in aggregate_wto.qualityFactorWorkPerformeds() %}
+                            {% set qualityFactor = qualityFactor + qFWP.getQualityFactor() %}
+                            {% set qualityFactor1 = qualityFactor1 + qFWP.getQualityFactor1() %}
+                            {% set qualityFactor2 = qualityFactor2 + qFWP.getQualityFactor2() %}
+                            {% set qualityFactor3 = qualityFactor3 + qFWP.getQualityFactor3() %}
+                            {% set qualityFactor4 = qualityFactor4 + qFWP.getQualityFactor4() %}
+                            {% set qualityFactor5 = qualityFactor5 + qFWP.getQualityFactor5() %}
+                        {% endfor %}
+                            <td>
+                                {{ qualityFactor}}
+                            </td>
+                            <td>
+                                {{ qualityFactor1}}
+                            </td>
+                            <td>
+                                {{ qualityFactor2}}
+                            </td>
+                            <td>
+                                {{ qualityFactor3}}
+                            </td>
+                            <td>
+                                {{ qualityFactor4}}
+                            </td>
+                            <td>
+                                {{ qualityFactor5}}
+                            </td>
+                            <td>
+                                {{ qualityFactor + qualityFactor1 + qualityFactor2 + qualityFactor3 + qualityFactor4 + qualityFactor5 }}
+                            </td>
+                    {% endif %}
                     </tr>
                 {% else %}
                     <tr>

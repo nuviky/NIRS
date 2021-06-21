@@ -22,11 +22,7 @@ class WorkComplexityFactors
      */
     private $workComplexityFactor;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=TypesOfEMAR::class, inversedBy="relation")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typesOfEMAR;
+
 
     public function getId(): ?int
     {
@@ -45,17 +41,7 @@ class WorkComplexityFactors
         return $this;
     }
 
-    public function getTypesOfEMAR(): ?TypesOfEMAR
-    {
-        return $this->typesOfEMAR;
-    }
 
-    public function setTypesOfEMAR(?TypesOfEMAR $typesOfEMAR): self
-    {
-        $this->typesOfEMAR = $typesOfEMAR;
-
-        return $this;
-    }
 
     public function __toString()
     {

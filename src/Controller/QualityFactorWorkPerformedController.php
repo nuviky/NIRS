@@ -94,6 +94,6 @@ class QualityFactorWorkPerformedController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('quality_factor_work_performed_index');
+        return $this->redirectToRoute('maintenance_personnel_index');
     }
 }

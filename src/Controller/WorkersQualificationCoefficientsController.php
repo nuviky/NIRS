@@ -89,6 +89,6 @@ class WorkersQualificationCoefficientsController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('workers_qualification_coefficients_index');
+        return $this->redirectToRoute('maintenance_personnel_index');
     }
 }

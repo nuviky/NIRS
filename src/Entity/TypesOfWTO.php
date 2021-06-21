@@ -25,12 +25,12 @@ class TypesOfWTO
     private $typeWTO;
 
     /**
-     * @ORM\OneToMany(targetEntity=AggregatesWTO::class, mappedBy="typesOfWTO")
+     * @ORM\OneToMany(targetEntity=AggregatesWTO::class, mappedBy="typesOfWTO", cascade={"remove"})
      */
     private $relation;
 
     /**
-     * @ORM\OneToMany(targetEntity=WorkersSkillLevel::class, mappedBy="relation")
+     * @ORM\OneToMany(targetEntity=WorkersSkillLevel::class, mappedBy="relation", cascade={"remove"})
      */
     private $workersSkillLevels;
 

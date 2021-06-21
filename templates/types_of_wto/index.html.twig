@@ -13,7 +13,6 @@
 	<table class="table table-bordered" >
 		<thead>
 			<tr>
-				<th>№</th>
 				<th><a href="{{ path('types_of_wto_new') }}">Тип ВТО</a></th>
 				<th><a href="{{ path('aggregates_wto_new') }}">Аггрегаты ВТО</a></th>
 				<th><a href="{{ path('types_of_emar_new') }}">Виды ТО и РО</a></th>
@@ -23,7 +22,6 @@
 		<tbody>
 			{% for types_of_wto in types_of_wtos %}
 				<tr>
-					<td>{{ types_of_wto.id }}</td>
 					<td><a href="{{ path('types_of_wto_edit', {'id': types_of_wto.id}) }}">{{ types_of_wto.typeWTO }}</a></td>
 					<td>
 						{% for AggregatesWTO in types_of_wto.getRelation() %}

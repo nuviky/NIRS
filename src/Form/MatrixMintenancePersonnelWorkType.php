@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class MatrixMintenancePersonnelWorkType extends AbstractType
@@ -36,6 +37,9 @@ class MatrixMintenancePersonnelWorkType extends AbstractType
                 'class' => AggregatesWTO::class,
                 'label' => 'Аггрегат ВТО']
             )
+            ->add('submit', SubmitType::class, [
+                'label' => 'Присвоить группе агрегат'
+            ]);
         ;
     }
 

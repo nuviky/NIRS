@@ -20,17 +20,17 @@ class MaintenancePersonnel
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="maintenancePersonnel")
+     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="maintenancePersonnel", cascade={"remove"})
      */
     private $relationQFWP;
 
     /**
-     * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="maintenancePersonnel")
+     * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="maintenancePersonnel", cascade={"remove"})
      */
     private $relationWQC;
 
     /**
-     * @ORM\OneToMany(targetEntity=WorkersSkillLevel::class, mappedBy="maintenancePersonnel")
+     * @ORM\OneToMany(targetEntity=WorkersSkillLevel::class, mappedBy="maintenancePersonnel", cascade={"remove"})
      */
     private $relationWSL;
 

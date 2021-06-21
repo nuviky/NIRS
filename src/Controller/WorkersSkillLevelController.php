@@ -80,6 +80,6 @@ class WorkersSkillLevelController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('workers_skill_level_index');
+        return $this->redirectToRoute('maintenance_personnel_index');
     }
 }
