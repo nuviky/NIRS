@@ -5,7 +5,7 @@
 {% block body %}
     {{ form_start(form) }}
         {{ form_row(form.qualityfactor) }}
-        {{ form_row(form.relation) }}
+        {{ form_row(form.TypeOfEMAR) }}
         {{ form_row(form.submit) }}
     {{ form_end(form, {'render_rest': false}) }}
     
@@ -23,39 +23,25 @@
                 <td>2</td>
                 <td>3</td>
                 <td>Количество выполненных работ</td>
+                <td>Уровень квалификации</td>
             </tr>
         </thead>
         <tbody>
-           {% for qFWP in maintenance_Personnel.getRelationQFWP() %}
+            {% for row in matrix %}
                 <tr>
-                        <td>
-                        {{ qFWP.getRelation().aggregateWTO }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor1 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor2 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor3 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor4 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor5 }}
-                        </td>
-                        <td>
-                        {{ qFWP.qualityFactor + qFWP.qualityFactor1 + qFWP.qualityFactor2 + qFWP.qualityFactor3 + qFWP.qualityFactor4 + qFWP.qualityFactor5 }}
-                        </td>
-                    </tr>
+                    <td> {{row['aggregate']}} </td>
+                    <td> {{row[-2]}} </td>
+                    <td> {{row[-1]}} </td>
+                    <td> {{row[0]}} </td>
+                    <td> {{row[1]}} </td>
+                    <td> {{row[2]}} </td>
+                    <td> {{row[3]}} </td>
+                    <td> {{row['count']}} </td>
+                    <td> {{row['levelQual']}} </td>
+                </tr>
             {% else %}
                 <tr>
-                    <td colspan="2">Нет данных</td>
+                    <td colspan="7">Нет данных</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -64,4 +50,10 @@
     <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
 
     {{ include('maintenance_personnel/_delete_form.html.twig') }}
+
+    {{ form_start(form1) }}
+        {{ form_widget(form1) }}
+        <button class="btn btn-primary">{{ button_label|default('Посчитать') }}</button>
+    {{ form_end(form1) }}
+    
 {% endblock %}

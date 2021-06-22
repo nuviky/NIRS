@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QualityFactorWorkPerformed index{% endblock %}
+
+{% block body %}
+    <h1>QualityFactorWorkPerformed index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>QualityFactor</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quality_factor_work_performed in quality_factor_work_performeds %}
+            <tr>
+                <td>{{ quality_factor_work_performed.id }}</td>
+                <td>{{ quality_factor_work_performed.qualityFactor }}</td>
+                <td>
+                    <a href="{{ path('quality_factor_work_performed_show', {'id': quality_factor_work_performed.id}) }}">show</a>
+                    <a href="{{ path('quality_factor_work_performed_edit', {'id': quality_factor_work_performed.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('quality_factor_work_performed_new') }}">Create new</a>
+{% endblock %}

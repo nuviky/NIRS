@@ -35,10 +35,7 @@ class AggregatesWTO
      */
     private $relation;
 
-    /**
-     * @ORM\OneToMany(targetEntity=QualityFactorWorkPerformed::class, mappedBy="relation", cascade={"remove"})
-     */
-    private $qualityFactorWorkPerformeds;
+
 
     /**
      * @ORM\OneToMany(targetEntity=WorkersQualificationCoefficients::class, mappedBy="relation", cascade={"remove"})
@@ -146,33 +143,4 @@ class AggregatesWTO
         return $this;
     }
 
-    /**
-     * @return Collection|WorkersQualificationCoefficients[]
-     */
-    public function getWorkersQualificationCoefficients(): Collection
-    {
-        return $this->workersQualificationCoefficients;
-    }
-
-    public function addWorkersQualificationCoefficient(WorkersQualificationCoefficients $workersQualificationCoefficient): self
-    {
-        if (!$this->workersQualificationCoefficients->contains($workersQualificationCoefficient)) {
-            $this->workersQualificationCoefficients[] = $workersQualificationCoefficient;
-            $workersQualificationCoefficient->setRelation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWorkersQualificationCoefficient(WorkersQualificationCoefficients $workersQualificationCoefficient): self
-    {
-        if ($this->workersQualificationCoefficients->removeElement($workersQualificationCoefficient)) {
-            // set the owning side to null (unless already changed)
-            if ($workersQualificationCoefficient->getRelation() === $this) {
-                $workersQualificationCoefficient->setRelation(null);
-            }
-        }
-
-        return $this;
-    }
 }

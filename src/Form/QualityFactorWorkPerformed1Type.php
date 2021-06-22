@@ -8,26 +8,16 @@ use App\Entity\MaintenancePersonnel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class MatrixMintenancePersonnelWorkType extends AbstractType
+class QualityFactorWorkPerformedType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('qualityfactor', ChoiceType::class, array(
-                'label' => 'Уровень квалификации',
-                'choices'  => array(
-                    '-2' => -2,
-                    '-1' => -1,
-                    '0' => 0,
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3
-                    )
-                )
+            ->add('qualityFactor', TextType::class, [
+                'label' => 'Уровень квалификации']
             )
             ->add('maintenancePersonnel', EntityType::class, [
                 'class' => MaintenancePersonnel::class,
@@ -37,16 +27,13 @@ class MatrixMintenancePersonnelWorkType extends AbstractType
                 'class' => TypesOfEMAR::class,
                 'label' => 'Виды ТО и РО']
             )
-            ->add('submit', SubmitType::class, [
-                'label' => 'Присвоить группе агрегат'
-            ]);
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => QualityFactorWorkPerformed::class,
         ]);
     }
 }

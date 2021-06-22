@@ -18,7 +18,7 @@ class WorkComplexityFactorsType extends AbstractType
             ->add('workComplexityFactor', TextType::class, [
                 'label' => 'Коэффициент сложности работ']
             )
-            ->add('typesOfEMAR', EntityType::class, [
+            ->add('typeOfEMAR', EntityType::class, [
                 'class' => TypesOfEMAR::class,
                 'label' => 'Виды ТО и РО']
             )

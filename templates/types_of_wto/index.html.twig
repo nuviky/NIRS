@@ -45,10 +45,10 @@
 					<td>
 						{% for AggregatesWTO in types_of_wto.getRelation() %}
 							{% for TypesOfEMAR in AggregatesWTO.getRelation() %}
-								{% if (TypesOfEMAR.getRelation().Count != 0) %}
+								{% if (TypesOfEMAR.getWorkComplexityFactors().Count != 0) %}
 								{{ TypesOfEMAR.typeOfEMAR }}
 								{% endif %}
-								{% for WorkComplexityFactors in TypesOfEMAR.getRelation() %}
+								{% for WorkComplexityFactors in TypesOfEMAR.getWorkComplexityFactors() %}
 									<p>
 									<a href="{{ path('work_complexity_factors_edit', {'id':WorkComplexityFactors.id}) }}">{{ WorkComplexityFactors.workComplexityFactor }}</a>
 									</p>

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QualityFactorWorkPerformed{% endblock %}
+
+{% block body %}
+    <h1>QualityFactorWorkPerformed</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quality_factor_work_performed.id }}</td>
+            </tr>
+            <tr>
+                <th>QualityFactor</th>
+                <td>{{ quality_factor_work_performed.qualityFactor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('quality_factor_work_performed_index') }}">back to list</a>
+
+    <a href="{{ path('quality_factor_work_performed_edit', {'id': quality_factor_work_performed.id}) }}">edit</a>
+
+    {{ include('quality_factor_work_performed/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,20 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\QualityFactorWorkPerformed;
-use App\Entity\AggregatesWTO;
-use App\Entity\MaintenancePersonnel;
-use App\Form\QualityFactorWorkPerformedType;
-use App\Form\MatrixMintenancePersonnelWorkType;
+use App\Form\QualityFactorWorkPerformed1Type;
 use App\Repository\QualityFactorWorkPerformedRepository;
-use App\Repository\MaintenancePersonnelRepository;
-use App\Repository\AggregatesWTORepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/quality_factor_work_performed")
+ * @Route("/quality/factor/work/performed")
  */
 class QualityFactorWorkPerformedController extends AbstractController
 {
@@ -36,7 +31,7 @@ class QualityFactorWorkPerformedController extends AbstractController
     public function new(Request $request): Response
     {
         $qualityFactorWorkPerformed = new QualityFactorWorkPerformed();
-        $form = $this->createForm(QualityFactorWorkPerformedType::class, $qualityFactorWorkPerformed);
+        $form = $this->createForm(QualityFactorWorkPerformed1Type::class, $qualityFactorWorkPerformed);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,7 +39,7 @@ class QualityFactorWorkPerformedController extends AbstractController
             $entityManager->persist($qualityFactorWorkPerformed);
             $entityManager->flush();
 
-            return $this->redirectToRoute('maintenance_personnel_index');
+            return $this->redirectToRoute('quality_factor_work_performed_index');
         }
 
         return $this->render('quality_factor_work_performed/new.html.twig', [
@@ -68,13 +63,13 @@ class QualityFactorWorkPerformedController extends AbstractController
      */
     public function edit(Request $request, QualityFactorWorkPerformed $qualityFactorWorkPerformed): Response
     {
-        $form = $this->createForm(QualityFactorWorkPerformedType::class, $qualityFactorWorkPerformed);
+        $form = $this->createForm(QualityFactorWorkPerformed1Type::class, $qualityFactorWorkPerformed);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('maintenance_personnel_index');
+            return $this->redirectToRoute('quality_factor_work_performed_index');
         }
 
         return $this->render('quality_factor_work_performed/edit.html.twig', [
@@ -94,6 +89,6 @@ class QualityFactorWorkPerformedController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('maintenance_personnel_index');
+        return $this->redirectToRoute('quality_factor_work_performed_index');
     }
 }
