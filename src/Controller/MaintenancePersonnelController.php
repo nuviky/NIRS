@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * @Route("/maintenancePersonnel")
@@ -32,7 +33,6 @@ class MaintenancePersonnelController extends AbstractController
         $form->handleRequest($request);
 
         $matr = $maintenancePersonnelRepository->searchTypeOfEMAR($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $typesOfEMARRepository);
-
         $matr1 = $maintenancePersonnelRepository->searchAg($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -88,7 +88,7 @@ class MaintenancePersonnelController extends AbstractController
         $form = $this->createForm(MatrixMintenancePersonnelWorkType::class, $qualityFactorWorkPerformed);
         $form->handleRequest($request);
 
-        $form1 = $this->createForm(LevelQualType::Class, null);
+        $form1 = $this->createForm(LevelQualType::class);
         $form1->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -98,13 +98,10 @@ class MaintenancePersonnelController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('maintenance_personnel_index');
         }
-
+        $matr = $maintenancePersonnelRepository->searchAgGr(null, $maintenancePersonnel, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository);
         if ($form1->isSubmitted()) {
-            $assigned_category = $form->get('assigned_category')->getData();
+            $assigned_category = $form1->get('assigned_category')->getData();
             $matr = $maintenancePersonnelRepository->searchAgGr($assigned_category, $maintenancePersonnel, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository); 
-        }
-        else {
-            $matr = $maintenancePersonnelRepository->searchAgGr(null, $maintenancePersonnel, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository); 
         }
 
         return $this->render('maintenance_personnel/edit.html.twig', [

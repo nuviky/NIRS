@@ -110,7 +110,7 @@ class AggregatesWTO
 
     public function __toString()
     {
-        return $this->aggregateWTO;
+        return self::getTypesOfWTO() . '->' . $this->aggregateWTO;
     }
 
     /**

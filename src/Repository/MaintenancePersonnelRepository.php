@@ -85,10 +85,10 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
                         $tmp['3'] += 1;
                     }
                 }
-                $tmp['aggregate'] = $aggregateWTO->getAggregateWTO();
+                $tmp['aggregate'] = $aggregateWTO;
                 $tmp['count'] = $tmp['-2'] + $tmp['-1'] + $tmp['0'] + $tmp['1'] + $tmp['2'] + $tmp['3'];
 
-                if (is_null($assigned_category)) {
+                if (!is_null($assigned_category)) {
                     $QFWP = array();
                     foreach ($aggregateWTO->getRelation() as $typeOfEMAR) {
                         array_push($QFWP, $qualityFactorWorkPerformedRepository->findBy(array('TypeOfEMAR' => $typeOfEMAR)));
@@ -140,7 +140,7 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
                         $tmp['3'] += 1;
                     }
                 }
-                $tmp['typeOfWTO'] = $typeOfEMAR->getTypeOfEMAR();
+                $tmp['typeOfWTO'] = $typeOfEMAR;
                 array_push($matrGr, $tmp);
             }
             array_push($matr, $matrGr);

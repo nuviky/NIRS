@@ -18,7 +18,6 @@
         <thead>
             <tr>
                 <td rowspan="2">Номер группы</td>
-                <td rowspan="2"><a href="{{ path('workers_skill_level_new') }}">Уровень квалификации группы</a></td>
                 <td rowspan="2"><a href="{{ path('workers_qualification_coefficients_new') }}">Коэффициент квалификации группы</a></td>
                 <td colspan="6"><a href="{{ path('quality_factor_work_performed_new') }}">Коэффициент качества выполненной работы</a></td>
             </tr>
@@ -37,18 +36,9 @@
             <tr>
                 <td rowspan={{count}}><a href="{{ path('maintenance_personnel_edit', {'id': maintenance_personnel.id}) }}">{{ maintenance_personnel.id }}</a></td>
                 <td rowspan={{count}}>
-                    {% for WSL in maintenance_personnel.getRelationWSL() %}
-                    <p>
-                    <a href="{{ path('workers_skill_level_edit', {'id': WSL.id}) }}">{{ WSL.getRelation().typeWTO }} -> {{ WSL.skillLevel }}</a>
-                    </p>
-                    {% else %}
-                        -
-                    {% endfor %}
-                </td>
-                <td rowspan={{count}}>
                     {% for WQC in maintenance_personnel.getRelationWQC() %}
                     <p>
-                    <a href="{{ path('workers_qualification_coefficients_edit', {'id': WQC.id}) }}">{{ WQC.getRelation().aggregateWTO }} -> {{ WQC.qualificationCoefficient }}</a>
+                    <a href="{{ path('workers_qualification_coefficients_edit', {'id': WQC.id}) }}">{{ WQC.getRelation() }} -> {{ WQC.qualificationCoefficient }}</a>
                     </p>
                     {% else %}
                         -

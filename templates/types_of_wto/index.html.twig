@@ -46,7 +46,7 @@
 						{% for AggregatesWTO in types_of_wto.getRelation() %}
 							{% for TypesOfEMAR in AggregatesWTO.getRelation() %}
 								{% if (TypesOfEMAR.getWorkComplexityFactors().Count != 0) %}
-								{{ TypesOfEMAR.typeOfEMAR }}
+								{{ TypesOfEMAR }}
 								{% endif %}
 								{% for WorkComplexityFactors in TypesOfEMAR.getWorkComplexityFactors() %}
 									<p>

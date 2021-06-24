@@ -82,7 +82,8 @@ class TypesOfEMAR
 
     public function __toString()
     {
-        return $this->typeOfEMAR;
+        $tmp = self::getAggregatesWTO();
+        return $tmp . '->' . $this->typeOfEMAR;
     }
 
     /**
