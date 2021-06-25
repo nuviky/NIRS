@@ -18,7 +18,7 @@ class MatrixMintenancePersonnelWorkType extends AbstractType
     {
         $builder
             ->add('qualityfactor', ChoiceType::class, array(
-                'label' => 'Уровень квалификации',
+                'label' => 'Коэф. качества выполняемых работ',
                 'choices'  => array(
                     '-2' => -2,
                     '-1' => -1,
@@ -38,7 +38,7 @@ class MatrixMintenancePersonnelWorkType extends AbstractType
                 'label' => 'Виды ТО и РО']
             )
             ->add('submit', SubmitType::class, [
-                'label' => 'Присвоить группе агрегат'
+                'label' => 'Внести данные'
             ]);
         ;
     }
