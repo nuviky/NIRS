@@ -19,7 +19,7 @@
             <tr>
                 <td rowspan="2">Номер группы</td>
                 <td rowspan="2"><a href="{{ path('workers_qualification_coefficients_new') }}">Коэффициент квалификации группы</a></td>
-                <td colspan="6"><a href="{{ path('quality_factor_work_performed_new') }}">Коэффициент качества выполненной работы</a></td>
+                <td colspan="6">Коэффициент качества выполненной работы</td>
             </tr>
             <tr>
                 <td>-2</td>
@@ -48,7 +48,7 @@
                 {% for matrixGr in matrix[counter] %}
                     {% if (counter_ > 0) %}
                         <tr>
-                            <td> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </td>
+                            <td> <a href="{{ path('quality_factor_work_performed_show', {'id': maintenance_personnel.id, 'idr': matrixGr['typeOfWTO'].getId}) }}"> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </a> </td>
                             <td> {{matrixGr[-1]}} </td>
                             <td> {{matrixGr[0]}} </td>
                             <td> {{matrixGr[1]}} </td>
@@ -56,7 +56,7 @@
                             <td> {{matrixGr[3]}} </td>
                         </tr>
                     {% else %}
-                        <td> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </td>
+                        <td> <a href="{{ path('quality_factor_work_performed_show', {'id': maintenance_personnel.id, 'idr': matrixGr['typeOfWTO'].getId}) }}"> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </a> </td>
                         <td> {{matrixGr[-1]}} </td>
                         <td> {{matrixGr[0]}} </td>
                         <td> {{matrixGr[1]}} </td>

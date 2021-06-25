@@ -1,26 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}QualityFactorWorkPerformed{% endblock %}
+{% block title %}Коэффициент качества выполненной работы{% endblock %}
 
 {% block body %}
-    <h1>QualityFactorWorkPerformed</h1>
-
-    <table class="table">
+    <h1>Коэффициент качества выполненной работы</h1>
+    <a href="{{ path('maintenance_personnel_index') }}">Назад</a>
+    {%set count = 1%}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td >№</td>
+                <td >Коэффициент качества выполненной работы</td>
+            </tr>
+        </thead>
         <tbody>
+    {% for quality_factor_work_performed in quality_factors_work_performed %}
             <tr>
-                <th>Id</th>
-                <td>{{ quality_factor_work_performed.id }}</td>
-            </tr>
-            <tr>
-                <th>QualityFactor</th>
+                <td>{{ count }}</td>
                 <td>{{ quality_factor_work_performed.qualityFactor }}</td>
+                <td>
+                    <form method="post" action="{{ path('quality_factor_work_performed_delete', {'id': quality_factor_work_performed.id}) }}" onsubmit="return confirm('Вы действительно хотите удалить этот элемент?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quality_factor_work_performed.id) }}">
+                        <button class="btn">Удалить</button>
+                    </form>
+                </td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('quality_factor_work_performed_index') }}">back to list</a>
-
-    <a href="{{ path('quality_factor_work_performed_edit', {'id': quality_factor_work_performed.id}) }}">edit</a>
-
-    {{ include('quality_factor_work_performed/_delete_form.html.twig') }}
+            {%set count = count + 1%}
+    {% endfor %}
+    </tbody>
 {% endblock %}

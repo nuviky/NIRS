@@ -53,8 +53,6 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
 
     public function searchAgGr($assigned_category, MaintenancePersonnel $maintenancePersonnel, QualityFactorWorkPerformedRepository $qualityFactorWorkPerformedRepository, AggregatesWTORepository $aggregatesWTORepository)
     {
-        $sum_complexity_coefficients_work = 0;
-                $temp = 0;
         $matr = array();
         $aggregatesWTO = $aggregatesWTORepository->findAll();
         foreach ($aggregatesWTO as $aggregateWTO) {
@@ -88,16 +86,22 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
                 $tmp['aggregate'] = $aggregateWTO;
                 $tmp['count'] = $tmp['-2'] + $tmp['-1'] + $tmp['0'] + $tmp['1'] + $tmp['2'] + $tmp['3'];
 
-                if (!is_null($assigned_category)) {
+                if (!is_null($assigned_category)) { 
+                    $temp = 0.0;
+                    $sum_complexity_coefficients_work = 0;
                     $QFWP = array();
                     foreach ($aggregateWTO->getRelation() as $typeOfEMAR) {
-                        array_push($QFWP, $qualityFactorWorkPerformedRepository->findBy(array('TypeOfEMAR' => $typeOfEMAR)));
+                        array_push($QFWP, $qualityFactorWorkPerformedRepository->findBy(array('maintenancePersonnel' => $maintenancePersonnel,'TypeOfEMAR' => $typeOfEMAR)));
+                        foreach ($typeOfEMAR->getWorkComplexityFactors() as $workComplexityFactor) {
+                            $sum_complexity_coefficients_work += (float) $workComplexityFactor->getWorkComplexityFactor();
+                        }
                     }
                     $countQFWP = Count($QFWP[0]);
                     for ($i=0; $i < Count($QFWP[0]); $i++) {
-                        $temp += $QFWP[0][$i]->getQualityFactor() * $sum_complexity_coefficients_work;
+                        $temp += (float) $QFWP[0][$i]->getQualityFactor() * $sum_complexity_coefficients_work;
                     }
-                    $levelQual = $assigned_category + ($temp / $countQFWP);
+                    $temp1 = $temp / $countQFWP;
+                    $levelQual = $assigned_category + $temp1;
                     $tmp['levelQual'] = $levelQual;
                 }
                 else {

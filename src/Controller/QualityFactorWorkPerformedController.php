@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\QualityFactorWorkPerformed;
 use App\Form\QualityFactorWorkPerformed1Type;
+use App\Entity\MaintenancePersonnel;
 use App\Repository\QualityFactorWorkPerformedRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\TypesOfEMARRepository;
 
 /**
  * @Route("/quality/factor/work/performed")
@@ -49,12 +51,13 @@ class QualityFactorWorkPerformedController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="quality_factor_work_performed_show", methods={"GET"})
+     * @Route("/{id}/{idr}", name="quality_factor_work_performed_show", methods={"GET"})
      */
-    public function show(QualityFactorWorkPerformed $qualityFactorWorkPerformed): Response
+    public function show(MaintenancePersonnel $maintenancePersonnel, $idr, QualityFactorWorkPerformedRepository $qualityFactorWorkPerformedRepository, TypesOfEMARRepository $typesOfEMARRepository): Response
     {
+        $typeOfEMAR = $typesOfEMARRepository->findOneBy(array('id' => $idr));
         return $this->render('quality_factor_work_performed/show.html.twig', [
-            'quality_factor_work_performed' => $qualityFactorWorkPerformed,
+            'quality_factors_work_performed' => $qualityFactorWorkPerformedRepository->findBy(array('maintenancePersonnel' => $maintenancePersonnel, 'TypeOfEMAR' => $typeOfEMAR)),
         ]);
     }
 
@@ -89,6 +92,6 @@ class QualityFactorWorkPerformedController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('quality_factor_work_performed_index');
+        return $this->redirectToRoute('maintenance_personnel_index');
     }
 }
