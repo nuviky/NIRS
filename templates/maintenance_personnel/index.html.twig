@@ -44,27 +44,29 @@
                         -
                     {% endfor %}
                 </td>
-                {% set counter_ = 0 %}
-                {% for matrixGr in matrix[counter] %}
-                    {% if (counter_ > 0) %}
-                        <tr>
+                {% if matrix is not null%}
+                    {% set counter_ = 0 %}
+                    {% for matrixGr in matrix[counter] %}
+                        {% if (counter_ > 0) %}
+                            <tr>
+                                <td> <a href="{{ path('quality_factor_work_performed_show', {'id': maintenance_personnel.id, 'idr': matrixGr['typeOfWTO'].getId}) }}"> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </a> </td>
+                                <td> {{matrixGr[-1]}} </td>
+                                <td> {{matrixGr[0]}} </td>
+                                <td> {{matrixGr[1]}} </td>
+                                <td> {{matrixGr[2]}} </td>
+                                <td> {{matrixGr[3]}} </td>
+                            </tr>
+                        {% else %}
                             <td> <a href="{{ path('quality_factor_work_performed_show', {'id': maintenance_personnel.id, 'idr': matrixGr['typeOfWTO'].getId}) }}"> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </a> </td>
                             <td> {{matrixGr[-1]}} </td>
                             <td> {{matrixGr[0]}} </td>
                             <td> {{matrixGr[1]}} </td>
                             <td> {{matrixGr[2]}} </td>
                             <td> {{matrixGr[3]}} </td>
-                        </tr>
-                    {% else %}
-                        <td> <a href="{{ path('quality_factor_work_performed_show', {'id': maintenance_personnel.id, 'idr': matrixGr['typeOfWTO'].getId}) }}"> {{matrixGr['typeOfWTO']}} -> {{matrixGr[-2]}} </a> </td>
-                        <td> {{matrixGr[-1]}} </td>
-                        <td> {{matrixGr[0]}} </td>
-                        <td> {{matrixGr[1]}} </td>
-                        <td> {{matrixGr[2]}} </td>
-                        <td> {{matrixGr[3]}} </td>
-                        {% set counter_ = 1 %}
-                    {% endif %}
-                {% endfor %}
+                            {% set counter_ = 1 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </tr>
             {% set counter = counter + 1 %}
         {% else %}
