@@ -31,10 +31,6 @@ class MaintenancePersonnelController extends AbstractController
         $maintenancePersonnel = new MaintenancePersonnel();
         $form = $this->createForm(MaintenancePersonnelType::class, $maintenancePersonnel);
         $form->handleRequest($request);
-
-        $matr = $maintenancePersonnelRepository->searchTypeOfEMAR($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $typesOfEMARRepository);
-        $matr1 = $maintenancePersonnelRepository->searchAg($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($maintenancePersonnel);
@@ -42,13 +38,15 @@ class MaintenancePersonnelController extends AbstractController
         }
 
 
-
+        $matr = $maintenancePersonnelRepository->searchTypeOfEMAR($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $typesOfEMARRepository);
+        $matr1 = $maintenancePersonnelRepository->searchAg($maintenancePersonnelRepository, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository);
+        $count = array();
+        
         return $this->render('maintenance_personnel/index.html.twig', [
             'maintenance_personnels' => $maintenancePersonnelRepository->findAll(),
             'aggregates_wtos' => $aggregatesWTORepository->findAll(),
             'matrix' => $matr,
             'matrix1' => $matr1,
-            'count' => Count($typesOfEMARRepository->findAll()),
             'form' => $form->createView(),
         ]);
     }

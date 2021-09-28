@@ -121,31 +121,40 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
         foreach ($maintenancePersonnelRepository->findAll() as $maintenancePersonnel_) {
             $matrGr = array();
             foreach ($typesOfEMARRepository->findAll() as $typeOfEMAR) {
+                $flag = false;
                 $tmp = array('typeOfWTO' => '','-2' => '0', '-1' => '0', '0' => '0', '1' => '0', '2' => '0', '3' => '0');
                 $QFWP = array();
                 array_push($QFWP, $qualityFactorWorkPerformedRepository->findBy(array('maintenancePersonnel' => $maintenancePersonnel_, 'TypeOfEMAR' => $typeOfEMAR)));
                 for ($i=0; $i < Count($QFWP[0]); $i++) {
                     if ($QFWP[0][$i]->getQualityFactor() == '-2') {
                         $tmp['-2'] += 1;
+                        $flag = true;
                     }
                     else if ($QFWP[0][$i]->getQualityFactor() == '-1') {
                         $tmp['-1'] += 1;
+                        $flag = true;
                     }
                     else if ($QFWP[0][$i]->getQualityFactor() == '0') {
                         $tmp['0'] += 1;
+                        $flag = true;
                     }
                     else if ($QFWP[0][$i]->getQualityFactor() == '1') {
                         $tmp['1'] += 1;
+                        $flag = true;
                     }
                     else if ($QFWP[0][$i]->getQualityFactor() == '2') {
                         $tmp['2'] += 1;
+                        $flag = true;
                     }
                     else if ($QFWP[0][$i]->getQualityFactor() == '3') {
                         $tmp['3'] += 1;
+                        $flag = true;
                     }
                 }
                 $tmp['typeOfWTO'] = $typeOfEMAR;
-                array_push($matrGr, $tmp);
+                if ($flag == true){
+                    array_push($matrGr, $tmp);
+                }
             }
             array_push($matr, $matrGr);
         }
