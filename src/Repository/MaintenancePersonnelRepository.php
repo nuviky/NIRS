@@ -62,7 +62,6 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
                 foreach ($aggregateWTO->getRelation() as $typeOfEMAR) {
                     array_push($QFWP, $qualityFactorWorkPerformedRepository->findBy(array('maintenancePersonnel' => $maintenancePersonnel, 'TypeOfEMAR' => $typeOfEMAR)));
                 }
-                $qwe = Count($QFWP[0]);
                 for ($i=0; $i < Count($QFWP[0]); $i++) {
                     if ($QFWP[0][$i]->getQualityFactor() == '-2') {
                         $tmp['-2'] += 1;
@@ -97,12 +96,17 @@ class MaintenancePersonnelRepository extends ServiceEntityRepository
                         }
                     }
                     $countQFWP = Count($QFWP[0]);
-                    for ($i=0; $i < Count($QFWP[0]); $i++) {
-                        $temp += (float) $QFWP[0][$i]->getQualityFactor() * $sum_complexity_coefficients_work;
+                    if ($countQFWP != 0) {
+                        for ($i=0; $i < Count($QFWP[0]); $i++) {
+                            $temp += (float) $QFWP[0][$i]->getQualityFactor() * $sum_complexity_coefficients_work;
+                        }
+                        $temp1 = $temp / $countQFWP;
+                        $levelQual = $assigned_category + $temp1;
+                        $tmp['levelQual'] = $levelQual;
                     }
-                    $temp1 = $temp / $countQFWP;
-                    $levelQual = $assigned_category + $temp1;
-                    $tmp['levelQual'] = $levelQual;
+                    else {
+                        $tmp['levelQual'] = "-";
+                    }
                 }
                 else {
                     $tmp['levelQual'] = '-';

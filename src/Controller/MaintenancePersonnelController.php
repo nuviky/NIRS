@@ -97,11 +97,11 @@ class MaintenancePersonnelController extends AbstractController
             return $this->redirectToRoute('maintenance_personnel_index');
         }
         $matr = $maintenancePersonnelRepository->searchAgGr(null, $maintenancePersonnel, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository);
+
         if ($form1->isSubmitted()) {
             $assigned_category = $form1->get('assigned_category')->getData();
             $matr = $maintenancePersonnelRepository->searchAgGr($assigned_category, $maintenancePersonnel, $qualityFactorWorkPerformedRepository, $aggregatesWTORepository); 
         }
-
         return $this->render('maintenance_personnel/edit.html.twig', [
             'maintenance_Personnel' => $maintenancePersonnel,
             'matrix' => $matr,
